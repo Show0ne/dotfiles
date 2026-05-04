@@ -1,0 +1,105 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 48,
+  "spacing": 0,
+  "margin-top": 8,
+  "margin-left": 10,
+  "margin-right": 10,
+
+  "modules-left": [
+    "hyprland/workspaces"
+  ],
+
+  "modules-center": [
+    "clock",
+    "custom/sep",
+    "custom/poweroff",
+    "custom/reboot",
+    "custom/htb"
+  ],
+
+  "modules-right": [
+    "cpu",
+    "memory",
+    "network",
+    "pulseaudio",
+    "custom/user"
+  ],
+
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "on-click": "activate",
+    "persistent-workspaces": {
+      "*": 5
+    }
+  },
+
+  "clock": {
+    "format": " {:%H:%M   %d/%m/%Y}"
+  },
+
+  "custom/sep": {
+    "format": "·",
+    "tooltip": false
+  },
+
+  "cpu": {
+    "format": " {usage}%",
+    "interval": 2
+  },
+
+  "memory": {
+    "format": " {percentage}%",
+    "interval": 2
+  },
+
+  "network": {
+    "format-ethernet": " {bandwidthDownBits}",
+    "format-wifi": " {bandwidthDownBits}",
+    "format-disconnected": " off"
+  },
+
+  "pulseaudio": {
+    "format": " {volume}%",
+    "format-muted": " mute"
+  },
+
+  "custom/user": {
+    "exec": "echo '{\"text\":\"Show\",\"tooltip\":\"Show@Hack4u~\"}'",
+    "interval": 60,
+    "return-type": "json",
+    "format": "{}"
+ },
+
+  "custom/poweroff": {
+    "format": " Apagar",
+    "tooltip": "Apagar",
+    "on-click": "zenity --question --text='¿Estás seguro de que quieres apagar el equipo?' && systemctl poweroff"
+  },
+
+  "custom/reboot": {
+    "format": " Reiniciar",
+    "tooltip": "Reiniciar",
+    "on-click": "zenity --question --text='¿Estás seguro de que quieres reiniciar?' && systemctl reboot"
+  
+},
+
+  "custom/htb": {
+    "format": "{}",
+    "return-type": "json",
+    "interval": 5,
+    "exec": "~/.config/waybar/scripts/htb_status.sh",
+    "on-click": "foot -e nmtui"
+},
+
+"custom/vpn": {
+    "format": "{}",
+    "return-type": "json",
+    "interval": 5,
+    "exec": "~/.config/hypr/scripts/vpn_status.sh",
+    "on-click": "vpon",
+    "on-click-right": "vpof"
+}
+
+}
