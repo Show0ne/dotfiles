@@ -97,14 +97,15 @@ tooltip {
 }
 
 #custom-vpn {
-    padding: 0 10px;
-    border-radius: 10px;
-    margin: 4px;
+    font-family: "FiraCode Nerd Font", monospace; /* Fuente de programador */
+    font-weight: bold;
+    padding: 0 15px;
 }
 
 #custom-vpn.connected {
-    background-color: #a6e3a1; /* Verde Catppuccin */
-    color: #1e1e2e;
+    background-color: #94e2d5; /* Un tono turquesa más "hacker" */
+    color: #11111b;
+    border: 1px solid #a6e3a1;
 }
 
 #custom-vpn.disconnected {
