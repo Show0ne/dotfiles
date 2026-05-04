@@ -1,0 +1,113 @@
+/* --- IMPORTACIÓN DE TU PALETA --- */
+@import "colors.css";
+
+/* --- ANIMACIONES (El interior del armario bien pintado) --- */
+@keyframes breathing {
+    0%   { text-shadow: 0 0 2px @htb_green; opacity: 0.85; }
+    50%  { text-shadow: 0 0 10px @htb_green; opacity: 1; }
+    100% { text-shadow: 0 0 2px @htb_green; opacity: 0.85; }
+}
+
+/* --- CONFIGURACIÓN BASE --- */
+* {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
+    font-size: 13px;
+    font-weight: 500; /* Un toque más de grosor para legibilidad */
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transición cinemática */
+}
+
+window#waybar {
+    background: transparent;
+}
+
+/* --- CONTENEDORES (Simetría Absoluta) --- */
+.modules-left, .modules-center, .modules-right {
+    background: rgba(20, 18, 16, 0.94);
+    border-radius: 12px;
+    border: 1.2px solid @border_gold; /* Grosor preciso */
+    margin: 6px 5px;
+    padding: 1px 12px;
+}
+
+.modules-left:hover, .modules-center:hover, .modules-right:hover {
+    border: 1.2px solid @accent_gold;
+    box-shadow: 0 0 15px @glow_effect;
+    background: rgba(29, 32, 33, 0.96); /* Aclara un poco al hover */
+}
+
+/* --- WORKSPACES (Minimalismo) --- */
+#workspaces button {
+    color: @text_main;
+    margin: 0 2px;
+    padding: 2px 12px;
+    border-radius: 8px;
+    opacity: 0.35;
+}
+
+#workspaces button.active {
+    color: @bg_dark;
+    background: linear-gradient(135deg, @accent_dim, @accent_gold);
+    opacity: 1;
+    font-weight: 800;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* --- HACKTHEBOX (El detalle estrella) --- */
+#custom-htb.connected {
+    color: @htb_green;
+    font-weight: 800;
+    animation: breathing 3s ease-in-out infinite; /* El efecto "vivo" */
+    padding: 0 5px;
+}
+
+/* --- MÉTRICAS Y RELOJ --- */
+#clock {
+    color: @accent_gold;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+#cpu, #memory, #pulseaudio {
+    padding: 0 8px;
+}
+
+#cpu { color: @green_soft; }
+#memory { color: @blue_soft; }
+#pulseaudio { color: @purple_soft; }
+
+/* --- USUARIO --- */
+#custom-user {
+    color: @text_main;
+    background-image: url("/home/show/.config/waybar/avatar.png");
+    background-size: 19px 19px; /* Tamaño reducido para dejar aire */
+    background-position: 8px center;
+    background-repeat: no-repeat;
+    padding-left: 35px;
+}
+
+/* --- TOOLTIPS --- */
+tooltip {
+    background: @bg_dark;
+    border: 1px solid @accent_gold;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+}
+
+#custom-vpn {
+    padding: 0 10px;
+    border-radius: 10px;
+    margin: 4px;
+}
+
+#custom-vpn.connected {
+    background-color: #a6e3a1; /* Verde Catppuccin */
+    color: #1e1e2e;
+}
+
+#custom-vpn.disconnected {
+    background-color: #f38ba8; /* Rojo */
+    color: #1e1e2e;
+}
