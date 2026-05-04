@@ -1,26 +1,44 @@
 #!/bin/bash
-# Script de despliegue de Show0ne
 
-echo "Iniciando despliegue de dotfiles..."
+# --- 1. Definición de Objetivos (Paquetes) ---
+PACKAGES=(
+    hyprland
+    foot
+    waybar
+    wofi
+    swww
+    fastfetch
+    zsh
+    git
+    openvpn
+    curl
+    nano
+)
 
-# Clonar el repo bare
-git clone --bare git@github.com:Show0ne/dotfiles.git $HOME/.cfg
+echo "🛡️ Iniciando el despliegue táctico de Show0ne..."
 
-# Definir el alias temporalmente para el script
+# --- 2. Instalación de Dependencias ---
+echo "📦 Instalando binarios necesarios..."
+sudo pacman -S --needed --noconfirm "${PACKAGES[@]}"
+
+# --- 3. Recuperación del Corazón (Repo Bare) ---
+if [ ! -d "$HOME/.cfg" ]; then
+    echo "📡 Clonando base de datos de configuración..."
+    git clone --bare git@github.com:Show0ne/dotfiles.git $HOME/.cfg
+else
+    echo "✅ El repo .cfg ya existe."
+fi
+
+# Definir función temporal para el script
 function dot {
    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
 }
 
-# Checkout de los archivos
+# --- 4. El Checkout (Desplegar archivos en su sitio) ---
+echo "🔧 Restaurando archivos de configuración..."
+dot checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .dotfiles-backup/{} 2>/dev/null
 dot checkout
-if [ $? = 0 ]; then
-  echo "Checked out config."
-else
-  echo "Backing up pre-existing dotfiles."
-  mkdir -p .dotfiles-backup
-  dot checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .dotfiles-backup/{}
-fi
 
-dot checkout
+# --- 5. Hardening final ---
 dot config --local status.showUntrackedFiles no
-echo "¡Sistema restaurado!"
+echo "🚀 ¡Sistema desplegado y configurado! Reinicia o lanza Hyprland."
