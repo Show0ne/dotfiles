@@ -95,6 +95,7 @@
 
 "custom/vpn": {
     "format": "{}",
+    "on-click": "ip addr show tun0 | grep -oP '(?<=inet\\s)\\d+(\\.\\d+){3}' | wl-copy",
     "return-type": "json",
     "interval": 5,
     "exec": "~/.config/hypr/scripts/vpn_status.sh",
